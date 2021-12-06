@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  # вебсервер 
+  nginx:
+    build: ./nginx
+    ports:
+      # стандартные порты http
+      - "80:80"
+      # порты для https
+      - "443:443"
+    environment:
+      # наше доменное имя сайта
+      - NGINX_HOST=moprules.ru
+    volumes:
+      # Статику пока что подключаем через volume
+      - ./mysite:/usr/share/nginx/html

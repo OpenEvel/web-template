@@ -1,0 +1,47 @@
+# Наш HTTPS сервер
+server {
+    # Указываем по какому порту мы ожидаем БЕЗОПАСНОЕ HTTPS соединение
+    listen 443 ssl;
+    # В нашем случае переменная окружения ${NGINX_HOST}=moprules.ru
+    # Указываем что все запросы по HTTPS типа
+    # moprules.ru, www.moprules.ru, *moprules.ru
+    # будут обрабатываться в этом блоке
+    # Также в этой строчке можно просто указать ip
+    # например:
+    # server_name 35.35.35.35
+    server_name ${NGINX_HOST} *.${NGINX_HOST};
+
+    # Путь до сертификата внутри контейнера nginx
+    ssl_certificate /etc/ssl/my_ssl.crt;
+    # Путь до приватного ключа сертификата внутри контейнера nginx
+    ssl_certificate_key /etc/ssl/private_my_ssl.key;
+
+    # Главная страница index
+    location / {
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+    }
+    # Страницы с ошибками
+    error_page 500 502 503 504 404 /lol.html;
+    location = /lol.html {
+        root /usr/share/nginx/html;
+    }
+}
+
+# Перенаправляем HTTP запрсы в HTTPS
+server {
+    # Указываем по какому порту мы ожидаем ОБЫЧНОЕ HTTP соединение
+    listen 80;
+    # В нашем случае переменная окружения ${NGINX_HOST}=moprules.ru
+    # Указываем что все запросы по HTTP типа
+    # moprules.ru, www.moprules.ru, *moprules.ru
+    # будут обрабатываться в этом блоке
+    # Также в этой строчке можно просто указать ip
+    # например:
+    # server_name 35.35.35.35
+    server_name ${NGINX_HOST} *.${NGINX_HOST};
+
+    location / {
+        return 301 https://${NGINX_HOST}$request_uri;
+    }
+}
