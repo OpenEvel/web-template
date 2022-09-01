@@ -7,6 +7,4 @@ COPY default.conf.template /etc/nginx/templates/
 
 # Подключаем ssl сертификат внутри контейнера
 # Сам сертификат
-COPY ./certs/my_ssl.crt /etc/ssl/my_ssl.crt
-# Приватный ключ
-COPY ./certs/private_my_ssl.key /etc/ssl/private_my_ssl.key
+COPY ./certs /etc/ssl

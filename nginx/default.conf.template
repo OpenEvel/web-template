@@ -4,7 +4,7 @@ server {
     listen 443 ssl;
     # В нашем случае переменная окружения ${NGINX_HOST}=moprules.ru
     # Указываем что все запросы по HTTPS типа
-    # moprules.ru, www.moprules.ru, *moprules.ru
+    # moprules.ru, www.moprules.ru, *.moprules.ru
     # будут обрабатываться в этом блоке
     # Также в этой строчке можно просто указать ip
     # например:
@@ -12,9 +12,9 @@ server {
     server_name ${NGINX_HOST} *.${NGINX_HOST};
 
     # Путь до сертификата внутри контейнера nginx
-    ssl_certificate /etc/ssl/my_ssl.crt;
+    ssl_certificate /etc/ssl/mysite.crt;
     # Путь до приватного ключа сертификата внутри контейнера nginx
-    ssl_certificate_key /etc/ssl/private_my_ssl.key;
+    ssl_certificate_key /etc/ssl/mysite.key;
 
     # Главная страница index
     location / {
