@@ -15,14 +15,14 @@
 Нужно создать два файла по [этой инструкции](https://help.reg.ru/hc/ru/articles/4408046821009/) (смотреть только на пункты 1-2, дальше не надо).
 
 Но в данном проекте файлы из инструкции мы переименуем так:
-* __your_domain.crt__ -> ***my_ssl.crt***
-* __your_domain.key__ -> ***private_my_ssl.key***
+* __your_domain.crt__ -> ***mysite.crt***
+* __your_domain.key__ -> ***mysite.key***
 
 Далее внутри папки __nginx__ создать папку __certs__ и перенести туда эти файлы, чтобы в итоге получилось:
 
-`./nginx/certs/my_ssl.crt`
+`./nginx/certs/mysite.crt`
 
-`./nginx/certs/private_my_ssl.key`
+`./nginx/certs/mysite.key`
 
 ## ***5. Работа с проектом***
 Чтобы запустить проект вам понадобиться __docker__ и __docker-compose__. Как их установить рассказано [тут](https://docs.docker.com/engine/install/). Сразу стоить заметить, что иногда __docker-compose__ не всегда хорошо ставится на сервер вместе с __docker-engine__. И если __docker-compose__ не работает, то стоить попробовать его устаноить через __pip__ по этой [инструкции](https://docs.docker.com/compose/install/#install-using-pip). Если вы запускаете проект на __windows__ сервере, то вам может понадобиться дополнительно установить ***CMake***, но к счатью на большинтсве __Linux__ серверов она работает уже из коробки.
