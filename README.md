@@ -1,5 +1,5 @@
 # nginx-docker-template
-Шаблон для проекта docker + nginx + что-то еще
+Шаблон для проекта docker + nginx + certbot
 
 # Введение
 ## ***1. Доменное имя***
