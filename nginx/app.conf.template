@@ -1,0 +1,49 @@
+server {
+    # Просулшиваемые порты
+    listen 80;
+    listen [::]:80;
+
+    # Домены по который пользователи будут обращатья к сайту
+    server_name $domain *.$domain;
+    
+    server_tokens off;
+
+    # Путь для обновления сертефикатов
+    location ~ /.well-known/acme-challenge {
+        allow all;
+        root /var/www/html;
+    }
+
+    # Перенаправляем небезопасное http соединение на https
+    location / {
+        rewrite ^ https://$domain$request_uri? permanent;
+    }
+}
+
+server {
+    # Просулшиваемые порты
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    # Доменное имя по которому будут обращаться пользователи
+    server_name $domain;
+
+    # Отключает выдачу версии nginx на страницах ошибок и в поле заголовка ответа «Сервер».
+    # Лучше для безопасности
+    server_tokens off;
+
+    # Пути до сертефикатов
+    ssl_certificate /etc/letsencrypt/live/$domain/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$domain/privkey.pem;
+
+    # Главная страница index
+    location / {
+        root /var/www/html;
+        index index.html index.htm;
+    }
+    # Страницы с ошибками
+    error_page 500 502 503 504 404 /lol.html;
+    location = /lol.html {
+        root /var/www/html;
+    }
+}

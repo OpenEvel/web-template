@@ -1,0 +1,25 @@
+server {
+    # Прослушиваемые порты
+    listen 80;
+    listen [::]:80;
+
+    # На какое доменное имя letsencrypt выдаёт сертификат
+    server_name $domain;
+    
+    # Отключает выдачу версии nginx на страницах ошибок и в поле заголовка ответа «Сервер».
+    # Лучше для безопасности
+    server_tokens off;
+
+    # Статистические файлы
+    # Для первоначального сервера не нужны,
+    # здесьчтобы проверить работает ли сайт
+    root /var/www/html;
+    index index.html index.htm;
+
+    # По какому адресу будет будет обращаться letsencrypt
+    # чтобы определить есть ли такой сайт
+    location ~ /.well-known/acme-challenge {
+        allow all;
+        root /var/www/html;
+    }
+}
