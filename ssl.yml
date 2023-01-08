@@ -38,8 +38,8 @@ services:
     depends_on:
       - webserver
     # в файле .env указаны пеменные среды, которые можно использовать здесь
-    # Для человека с почтой $email выдаём сертификат на домен $domain
-    command: certonly --webroot --webroot-path=/var/www/html --email $email --agree-tos --no-eff-email --staging -d $domain
+    # Выдаём сертификат на домен $domain
+    command: certonly --webroot --webroot-path=/var/www/html --register-unsafely-without-email --agree-tos --staging -d $domain
 
 volumes:
   certbot-etc:

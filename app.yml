@@ -39,8 +39,8 @@ services:
     depends_on:
       - webserver
     # в файле .env указаны пеменные среды, которые можно использовать здесь
-    # Для человека с почтой $email обновляем сертификат на домен $domain
-    command: certonly --webroot --webroot-path=/var/www/html --email $email --agree-tos --no-eff-email --force-renewal -d $domain
+    # Обновляем сертификат на домен $domain
+    command: certonly --webroot --webroot-path=/var/www/html --register-unsafely-without-email --agree-tos --force-renewal -d $domain
 
 volumes:
   certbot-etc:
