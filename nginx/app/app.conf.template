@@ -4,8 +4,8 @@ server {
     listen [::]:80;
 
     # Домены по который пользователи будут обращатья к сайту
-    server_name $domain *.$domain;
-    
+    server_name $domain;
+
     server_tokens off;
 
     # Путь для обновления сертефикатов

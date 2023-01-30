@@ -3,7 +3,7 @@ version: "3.7"
 services:
   # Уже рабочий вебсервер с ssl соединением
   webserver:
-    image: nginx
+    build: nginx
     container_name: webserver
     restart: unless-stopped
     # 443 - порт для ssl соединения
@@ -12,36 +12,12 @@ services:
       - "443:443"
     volumes:
       # Статические файлы, а также
-      # Дирректория webroot, чтобы обновлть сертификаты
+      # Дирректория webroot, чтобы обновлять сертификаты
       # Можно было бы использовать обычный том
-      - ./mysite:/var/www/html
-      # Настройки для nginx, отличаются от ssl.yml
-      - ./nginx:/etc/nginx/templates
-      # места хранения сертификатов от certbot
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
+      - ./webroot:/webroot
+      - ./nginx/app:/webserver_confs/app
+      - ./nginx/ssl:/webserver_confs/ssl
     # Нужный файл - здесь прописано доменное имя к которому обращаются пользователи
     # И на которое у нас уже есть сертификат
     # Используетсяв ./nginx/app.conf.template
     env_file: .env
-
-  # Контейнер, чтобы обновить наши сертификаты
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      # места хранения сертификатов от certbot
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-       Дирректория webroot, чтобы получить сертификат
-      # Без нее у letsencrypt не получиться обратиться к нашему сайту
-      - ./mysite:/var/www/html
-    depends_on:
-      - webserver
-    # в файле .env указаны пеменные среды, которые можно использовать здесь
-    # Обновляем сертификат на домен $domain
-    command: certonly --webroot --webroot-path=/var/www/html --register-unsafely-without-email --agree-tos --force-renewal -d $domain
-
-volumes:
-  certbot-etc:
-  certbot-var:
