@@ -10,12 +10,11 @@ RUN apk update && apk add --no-cache certbot
 WORKDIR /app
 
 # Задаём параметры nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY . .
 
 # Скрипт для правильного запуска контейнера
 # Чтобы обновлял только те сертификаты, которые нужно
 # Чтобы не попасть в бан из-за слишком частых запросов при деплое
-COPY run.sh run.sh
 RUN chmod +x ./run.sh
 
 # Скрипт для обновления сертификатов через cron
