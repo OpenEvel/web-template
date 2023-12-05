@@ -9,7 +9,7 @@ nginx -g 'daemon on;'
 # Если сертификатов еще не было (папки с сертификатами не существует)
 if [[ ! -d /etc/letsencrypt/live/${DOMAIN}/privkey.pem ]]; then
     # то получаем их впервые
-    certbot certonly --standalone --webroot --webroot-path=/certbot --register-unsafely-without-email --agree-tos -d ${DOMAIN}
+    certbot certonly --webroot --webroot-path=/certbot --register-unsafely-without-email --agree-tos -d ${DOMAIN}
 fi
 
 # 4. на всякий случай пытаемся обновить существующий сертификат
