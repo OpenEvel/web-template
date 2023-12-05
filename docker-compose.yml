@@ -36,7 +36,7 @@ services:
       - media_value:/var/html/media/
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
-      - ./frontend:/var/www/html
+      - ./frontend:/frontend
     # depends_on:
     #   - backend
     #   - frontend
