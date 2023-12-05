@@ -7,7 +7,7 @@ nginx -g 'daemon on;'
 
 # 3. Получаем/обновляем/используем старые сертификаты от certbot
 # Если сертификатов еще не было (папки с сертификатами не существует)
-if [[ ! -d /etc/letsencrypt/live/${DOMAIN}/privkey.pem ]]; then
+if [ ! -f /etc/letsencrypt/live/${DOMAIN}/fullchain.pem ] || [ ! -f /etc/letsencrypt/live/${DOMAIN}/privkey.pem ]; then
     # то получаем их впервые
     certbot certonly --webroot --webroot-path=/certbot --register-unsafely-without-email --agree-tos -d ${DOMAIN}
 fi
