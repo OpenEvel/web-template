@@ -16,4 +16,4 @@ crond -b -l 8 -L /app/cron.log
 
 # 4. Запуск nginx в интерактивном режиме
 # Теперь nginx главные процесс, если с ним что-то случится, то контейнер перезапустится
-nginx -g 'daemon off;'"
+nginx -g 'daemon off;'
