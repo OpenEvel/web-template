@@ -1,5 +1,5 @@
 # Используем базовый образ Nginx
-FROM nginx:stable-alpine-slim
+FROM nginx:stable-slim
 
 # Папка для взаимодействия с certbot
 RUN mkdir -p /certbot
